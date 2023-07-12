@@ -1,5 +1,5 @@
 # Airport
-Initial init
+
 An airport integration application that combines information for all departure and arrival flights can be a valuable tool for travellers, airport staff, and airlines. Such an application would provide real-time updates, streamline processes, and enhance overall efficiency. Here are some key features that could be included in an airport integration application:
 
 1-	Flight Information: The application should provide comprehensive and up-to-date information about departure and arrival flights, including flight numbers, scheduled times, actual times, terminal/gate assignments, and any delays or cancellations. Users should be able to search for specific flights or view an overview of all flights.
