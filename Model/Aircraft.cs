@@ -1,8 +1,7 @@
 ﻿namespace Airport.Model;
 
-public class Aircraft
+public class Aircraft : BaseModel
 {
-    public int AircraftId { get; set; }
-    public string Type { get; set; }
+    public string Type { get; set; } = string.Empty;
     public int SeatingCapacity { get; set; }
 }
