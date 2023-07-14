@@ -1,0 +1,9 @@
+﻿GitLab merge master commands
+A developer can use the following commands to merge master into any branch in GitLab:
+
+git checkout fun_feature
+git merge master
+ls
+git reflog
+git push origin fun_feature
+
