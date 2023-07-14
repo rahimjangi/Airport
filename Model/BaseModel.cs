@@ -1,8 +1,11 @@
-﻿namespace Airport.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Airport.Model;
 
 public class BaseModel
 {
-    public Guid Id { get; set; }
+    [Key]
+    public int Id { get; set; }
     public DateTime CreateDate { get; set; }
     public DateTime UpdateDate { get; set; }
     public DateTime ArchiveDate { get; set; }

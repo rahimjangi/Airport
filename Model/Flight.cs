@@ -1,20 +1,18 @@
 ﻿namespace Airport.Model
 {
-    public class Flight
+    public class Flight : BaseModel
     {
-        public int FlightId { get; set; }
-        public int AirlineId { get; set; }
-        public int DepartureAirportId { get; set; }
-        public int DestinationAirportId { get; set; }
-        public DateTime DepartureTime { get; set; }
-        public DateTime ArrivalTime { get; set; }
-        public int AircraftId { get; set; }
-        // ...
+        public string FlightNumber { get; set; } = string.Empty;
+        public DateTime ScheduledDepartureTime { get; set; }
+        public DateTime ActualDepartureTime { get; set; }
+        public string DepartureTerminal { get; set; } = string.Empty;
+        public string DepartureGate { get; set; } = string.Empty;
+        public DateTime ScheduledArrivalTime { get; set; }
+        public DateTime ActualArrivalTime { get; set; }
+        public string ArrivalTerminal { get; set; } = string.Empty;
+        public string ArrivalGate { get; set; } = string.Empty;
+        public string FlightStatus { get; set; } = string.Empty;
 
-        // Relationships
-        public Airline Airline { get; set; }
-        public Airport DepartureAirport { get; set; }
-        public Airport DestinationAirport { get; set; }
-        public Aircraft Aircraft { get; set; }
+
     }
 }

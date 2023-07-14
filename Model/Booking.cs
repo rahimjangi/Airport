@@ -1,16 +1,10 @@
 ﻿namespace Airport.Model
 {
-    public class Booking
+    public class Booking : BaseModel
     {
-        public int BookingId { get; set; }
         public int PassengerId { get; set; }
         public int FlightId { get; set; }
-        public string SeatNumber { get; set; }
-        public string BookingStatus { get; set; }
-        // ...
-
-        // Relationships
-        public Passenger Passenger { get; set; }
-        public Flight Flight { get; set; }
+        public string SeatNumber { get; set; } = string.Empty;
+        public string BookingStatus { get; set; } = string.Empty;
     }
 }
