@@ -7,13 +7,13 @@ namespace Airport.Controllers
     [ApiController]
     public class AirportDataController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult S()
-        {
-            string input = Request["input"];
-            var model = new ReportBL();
-            var report = model.Process(input);
-            return View(report);
-        }
+        //[HttpPost]
+        //public ActionResult S()
+        //{
+        //    string input = Request["input"];
+        //    var model = new ReportBL();
+        //    var report = model.Process(input);
+        //    return View(report);
+        //}
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Airport.Model
 {
-    public class AirportService : BaseModel
+    public class AirportContact : BaseModel
     {
         public string Name { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
