@@ -4,6 +4,11 @@ namespace Airport.Service.AircraftService
 {
     public class AircraftRepository : IAircraftRepository
     {
+        public Task CreateByEntity(ServiceResponse<Aircraft> entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public  Task DeleteById(int id)
         {
             

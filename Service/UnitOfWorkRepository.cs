@@ -1,4 +1,5 @@
-﻿using Airport.Model;
+﻿using Airport.Data;
+using Airport.Model;
 using Airport.Service.AccessibilityFeatureService;
 using Airport.Service.AccessibilityOptionService;
 using Airport.Service.AircraftService;
@@ -33,6 +34,7 @@ namespace Airport.Service
 {
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
+        private readonly ApplicationDbContext _context;
         public IAirlineRepository Airline { get; set; }
         public IAirportInfoRepository AirportInfo { get; set; }
         public IAccessibilityFeatureRepository AccessibilityFeature { get; set; }
@@ -63,14 +65,14 @@ namespace Airport.Service
         public ITransportationUpdateRepository TransportationUpdate { get; set; }
 
 
-        public UnitOfWorkRepository()
+        public UnitOfWorkRepository(ApplicationDbContext context)
         {
-            Airline = new AirlineRepository();
+            _context=context;
             AirportInfo = new AirportInfoRepository();
             AccessibilityFeature = new AccessibilityFeatureRepository();
             AccessibilityOption = new AccessibilityOptionRepository();
             Aircraft = new AircraftRepository();
-            Airline = new AirlineRepository();
+            Airline = new AirlineRepository(_context);
             AirportAmenity = new AirportAmenityRepository();
             AirportLocation = new AirportLocationRepository();
             AirportContact = new AirportContactRepository();
@@ -94,6 +96,7 @@ namespace Airport.Service
             Translation = new TranslationRepository();
             TransportationProvider = new TransportationProviderRepository();
             TransportationUpdate = new TransportationUpdateRepository();
+            _context = context;
         }
     }
 }

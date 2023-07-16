@@ -4,6 +4,11 @@ namespace Airport.Service.AirportInfoService
 {
     public class AirportInfoRepository : IAirportInfoRepository
     {
+        public Task CreateByEntity(ServiceResponse<AirportInfo> entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

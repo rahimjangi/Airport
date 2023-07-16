@@ -4,6 +4,11 @@ namespace Airport.Service.BaggageService
 {
     public class BaggageRepository : IBaggageRepository
     {
+        public Task CreateByEntity(Baggage entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

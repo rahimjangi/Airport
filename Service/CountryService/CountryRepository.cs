@@ -4,6 +4,11 @@ namespace Airport.Service.CountryService
 {
     public class CountryRepository : ICountryRepository
     {
+        public Task CreateByEntity(Country entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

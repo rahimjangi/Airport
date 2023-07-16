@@ -4,6 +4,11 @@ namespace Airport.Service.PaymentService
 {
     public class PaymentRepository : IPaymentRepository
     {
+        public Task CreateByEntity(Payment entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

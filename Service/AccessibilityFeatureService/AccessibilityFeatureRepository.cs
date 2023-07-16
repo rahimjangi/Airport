@@ -4,6 +4,11 @@ namespace Airport.Service.AccessibilityFeatureService
 {
     public class AccessibilityFeatureRepository : IAccessibilityFeatureRepository
     {
+        public Task CreateByEntity(ServiceResponse<AccessibilityFeature> entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

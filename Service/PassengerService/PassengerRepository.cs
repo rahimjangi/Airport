@@ -4,6 +4,12 @@ namespace Airport.Service.PassengerService
 {
     public class PassengerRepository : IPassengerRepository
     {
+        public Task CreateByEntity(Passenger passenger)
+        {
+
+            return Task.CompletedTask;
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

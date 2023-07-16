@@ -4,6 +4,11 @@ namespace Airport.Service.BoardingPassService
 {
     public class BoardingPassRepository : IBoardingPassRepository
     {
+        public Task CreateByEntity(BoardingPass entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

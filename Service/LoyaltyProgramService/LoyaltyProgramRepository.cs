@@ -4,6 +4,11 @@ namespace Airport.Service.LoyaltyProgramService
 {
     public class LoyaltyProgramRepository : ILoyaltyProgramRepository
     {
+        public Task CreateByEntity(LoyaltyProgram entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

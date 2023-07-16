@@ -4,6 +4,11 @@ namespace Airport.Service.FlightNotificationeService
 {
     public class FlightNotificationeRepository : IFlightNotificationeRepositoy
     {
+        public Task CreateByEntity(FlightNotificatione entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

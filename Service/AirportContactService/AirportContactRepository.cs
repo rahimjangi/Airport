@@ -2,6 +2,11 @@
 {
     public class AirportContactRepository : IAirportContactRepository
     {
+        public Task CreateByEntity(AirportContactRepository entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

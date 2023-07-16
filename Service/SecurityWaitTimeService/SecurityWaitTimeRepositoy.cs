@@ -4,6 +4,11 @@ namespace Airport.Service.SecurityWaitTimeService
 {
     public class SecurityWaitTimeRepositoy : ISecurityWaitTimeRepository
     {
+        public Task CreateByEntity(SecurityWaitTime entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

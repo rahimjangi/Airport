@@ -4,6 +4,11 @@ namespace Airport.Service.CheckInRequestService
 {
     public class CheckInRequestRepository : ICheckInRequestRepository
     {
+        public Task CreateByEntity(CheckInRequest entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

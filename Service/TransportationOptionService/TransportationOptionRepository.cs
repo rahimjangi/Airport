@@ -4,6 +4,11 @@ namespace Airport.Service.TransportationOptionService
 {
     public class TransportationOptionRepository : ITransportationOptionRepository
     {
+        public Task CreateByEntity(TransportationOption entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

@@ -4,6 +4,11 @@ namespace Airport.Service.BookingService
 {
     public class BookingRepository : IBookingRepository
     {
+        public Task CreateByEntity(Booking entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

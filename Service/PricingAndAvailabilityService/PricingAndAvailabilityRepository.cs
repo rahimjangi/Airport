@@ -4,6 +4,11 @@ namespace Airport.Service.PricingAndAvailabilityService
 {
     public class PricingAndAvailabilityRepository : IPricingAndAvailabilityRepository
     {
+        public Task CreateByEntity(PricingAndAvailability entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

@@ -4,6 +4,11 @@ namespace Airport.Service.SecurityCheckpointService
 {
     public class SecurityCheckpointRepository : ISecurityCheckpointRepository
     {
+        public Task CreateByEntity(SecurityCheckpoint entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

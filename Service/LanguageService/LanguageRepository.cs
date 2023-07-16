@@ -4,6 +4,11 @@ namespace Airport.Service.LanguageService
 {
     public class LanguageRepository : ILanguageRepository
     {
+        public Task CreateByEntity(Language entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

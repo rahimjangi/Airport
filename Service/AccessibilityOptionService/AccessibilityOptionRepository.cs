@@ -4,6 +4,11 @@ namespace Airport.Service.AccessibilityOptionService
 {
     public class AccessibilityOptionRepository : IAccessibilityOptionRepository
     {
+        public Task CreateByEntity(ServiceResponse<AccessibilityOption> entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

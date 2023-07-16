@@ -4,6 +4,11 @@ namespace Airport.Service.MapRouteService
 {
     public class MapRouteRepository : IMapRouteRepository
     {
+        public Task CreateByEntity(MapRoute entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();

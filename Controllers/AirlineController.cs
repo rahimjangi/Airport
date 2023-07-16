@@ -24,5 +24,21 @@ namespace Airport.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<Airline>>> GetAll(int id)
+        {
+            var result= await _unitOfWork.Airline.GetById(id);
+            return Ok(result);
+        }
+
+        [HttpPost("")]
+        public async Task<ActionResult<ServiceResponse<Airline>>> Add(Airline airline)
+        {
+            var sr = new ServiceResponse<Airline>();
+            sr.Data = airline;
+            await _unitOfWork.Airline.CreateByEntity(sr);
+            return Ok();
+        }
+
     }
 }
