@@ -9,6 +9,7 @@
         Task<T> UpdateByEntity(T entity);
         Task DeleteById(int id);
         Task DeleteByName(string name);
-        Task DeleteRange();      
+        Task DeleteRange();
+        Task CreateByEntity(T entity);
     }
 }

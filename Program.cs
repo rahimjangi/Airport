@@ -1,4 +1,5 @@
 using Airport.Data;
+using Airport.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
     }
     );
+
+builder.Services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
 
 var app = builder.Build();
 
