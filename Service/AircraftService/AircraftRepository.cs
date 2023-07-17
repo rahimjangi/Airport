@@ -4,7 +4,7 @@ namespace Airport.Service.AircraftService
 {
     public class AircraftRepository : IAircraftRepository
     {
-        public Task CreateByEntity(ServiceResponse<Aircraft> entity)
+        public Task CreateByEntity(ServiceResponse<Aircraf> entity)
         {
             throw new NotImplementedException();
         }
