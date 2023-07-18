@@ -1,4 +1,5 @@
-﻿using Airport.Model;
+﻿using Airport.Dto;
+using Airport.Model;
 using Airport.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,13 +33,21 @@ namespace Airport.Controllers
         }
 
         [HttpPost("")]
-        public async Task<ActionResult<ServiceResponse<Airline>>> Add(Airline airline)
+        public async Task<ActionResult<ServiceResponse<Airline>>> Add(AirlineDto airline)
         {
-            var sr = new ServiceResponse<Airline>();
+            var sr = new ServiceResponse<AirlineDto>();
             sr.Data = airline;
             await _unitOfWork.Airline.CreateByEntity(sr);
             return Ok();
         }
 
+        [HttpDelete("")]
+        public async Task<ActionResult<ServiceResponse<Airline>>> DeleteByName(string airlineName)
+        {            
+            await _unitOfWork.Airline.DeleteByName(airlineName);
+
+            return Ok();
+        }
+        
     }
 }

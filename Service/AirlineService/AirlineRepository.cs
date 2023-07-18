@@ -1,35 +1,39 @@
 ﻿using Airport.Data;
+using Airport.Dto;
 using Airport.Model;
-using Azure;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Timers;
+
 
 namespace Airport.Service.AirlineService
 {
     public class AirlineRepository : IAirlineRepository
     {
         private readonly ApplicationDbContext _context;
-        ServiceResponse<Airline> _response;
+        private readonly IMapper _mapper;
 
-        public AirlineRepository(ApplicationDbContext context)
+        public AirlineRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<ServiceResponse<Airline>>> GetAll()
+        public async Task<List<ServiceResponse<AirlineDto>>> GetAll()
         {
+            ServiceResponse<AirlineDto> _response = new ServiceResponse<AirlineDto>();
             var resultList = await _context.Airlines.ToListAsync();
 
-            var responseList = new List<ServiceResponse<Airline>>();
+            var responseList = new List<ServiceResponse<AirlineDto>>();
 
             if(resultList != null && resultList.Count > 0) {
-                foreach (var result in resultList)
+
+                var mapResults = _mapper.Map<List<AirlineDto>>(resultList);
+
+                foreach (var mapResult in mapResults)
                 {
-                    _response = new ServiceResponse<Airline>
+                    _response = new ServiceResponse<AirlineDto>
                     {
-                        Data = result,
+                        Data = mapResult,
                         Success = true,
                         Message = "Airline found."
                     };
@@ -38,7 +42,7 @@ namespace Airport.Service.AirlineService
                 }
             }
             else {
-                var response = new ServiceResponse<Airline>
+                var response = new ServiceResponse<AirlineDto>
                 {
                     Data = null,
                     Success = false,
@@ -51,16 +55,18 @@ namespace Airport.Service.AirlineService
             return responseList;          
         }
 
-        public async Task<ServiceResponse<Airline>> GetById(int id)
+        public async Task<ServiceResponse<AirlineDto>> GetById(int id)
         {
-            
+            ServiceResponse<AirlineDto> _response = new ServiceResponse<AirlineDto>();
+
             var result = await _context.Airlines.FirstOrDefaultAsync(a => a.Id.Equals(id));
 
             if(result != null)
             {
-                _response = new ServiceResponse<Airline>
+                var resultMap = _mapper.Map<AirlineDto>(result);
+                _response = new ServiceResponse<AirlineDto>
                 {
-                    Data = result,
+                    Data = resultMap,
                     Success = true,
                     Message = "Airline found."
                 };
@@ -69,9 +75,9 @@ namespace Airport.Service.AirlineService
             }
             else
             {
-                _response = new ServiceResponse<Airline>
+                _response = new ServiceResponse<AirlineDto>
                 {
-                    Data = result,
+                    Data = null,
                     Success = false,
                     Message = "Airline not found."
                 };
@@ -79,12 +85,15 @@ namespace Airport.Service.AirlineService
             }
         }
 
-        public async Task CreateByEntity(ServiceResponse<Airline> entity)
+        public async Task CreateByEntity(ServiceResponse<AirlineDto> entity)
         {
             if(entity.Data != null)
             {
-                await _context.Airlines.AddAsync(entity.Data);
+                var mapResult = _mapper.Map<Airline>(entity.Data);
+
+                await _context.Airlines.AddAsync(mapResult);
                 await _context.SaveChangesAsync();
+
             }
             else
             {
@@ -97,9 +106,16 @@ namespace Airport.Service.AirlineService
             throw new NotImplementedException();
         }
 
-        public Task DeleteByName(string name)
+        public async Task DeleteByName(string name)
         {
-            throw new NotImplementedException();
+            var result = await _context.Airlines.FirstOrDefaultAsync(n => n.Name.Equals(name));
+
+            if(result != null)
+            {               
+                _context.Airlines.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+
         }
 
         public Task DeleteRange()
@@ -109,17 +125,17 @@ namespace Airport.Service.AirlineService
 
         
 
-        public Task<ServiceResponse<Airline>> GetByName(string name)
+        public Task<ServiceResponse<AirlineDto>> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<Airline>> Update(int id, ServiceResponse<Airline> entity)
+        public Task<ServiceResponse<AirlineDto>> Update(int id, ServiceResponse<AirlineDto> entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<Airline>> UpdateByEntity(ServiceResponse<Airline> entity)
+        public Task<ServiceResponse<AirlineDto>> UpdateByEntity(ServiceResponse<AirlineDto> entity)
         {
             throw new NotImplementedException();
         }

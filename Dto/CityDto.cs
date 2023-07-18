@@ -1,8 +1,10 @@
-﻿namespace Airport.Dto;
+﻿using Airport.Model;
+
+namespace Airport.Dto;
 
 public class CityDto
 {
     public string Name { get; set; } = string.Empty;
-    public Country? Country { get; set; }
+    public CountryDto? Country { get; set; }
     // Additional properties as needed
 }
