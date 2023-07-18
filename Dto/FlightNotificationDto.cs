@@ -1,6 +1,6 @@
 ﻿namespace Airport.Dto
 {
-    public class FlightNotificationeDto
+    public class FlightNotificationeDto { 
         public string FlightNumber { get; set; } = string.Empty;
         public NotificationType Type { get; set; }
         public string Message { get; set; } = string.Empty;

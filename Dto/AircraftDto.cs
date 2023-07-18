@@ -7,6 +7,6 @@ public class AircraftDto
     public int TotalSeats { get; set; }
     public DateTime ManufacturingDate { get; set; }
     public string RegistrationNumber { get; set; } = string.Empty;
-    public Country? CountryOfOrigin { get; set; }
-    public City? CurrentLocation { get; set; }
+    public CountryDto? CountryOfOrigin { get; set; }
+    public CityDto? CurrentLocation { get; set; }
 }

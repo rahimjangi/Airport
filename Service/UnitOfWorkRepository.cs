@@ -28,6 +28,7 @@ using Airport.Service.SecurityWaitTimeService;
 using Airport.Service.TranslationService;
 using Airport.Service.TransportationProviderService;
 using Airport.Service.TransportationUpdateService;
+using AutoMapper;
 using System.Security.Principal;
 
 namespace Airport.Service
@@ -35,6 +36,7 @@ namespace Airport.Service
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
         public IAirlineRepository Airline { get; set; }
         public IAirportInfoRepository AirportInfo { get; set; }
         public IAccessibilityFeatureRepository AccessibilityFeature { get; set; }
@@ -65,14 +67,16 @@ namespace Airport.Service
         public ITransportationUpdateRepository TransportationUpdate { get; set; }
 
 
-        public UnitOfWorkRepository(ApplicationDbContext context)
+        public UnitOfWorkRepository(ApplicationDbContext context, IMapper mapper)
         {
-            _context=context;
+            _context = context;
+            _mapper = mapper;
+
             AirportInfo = new AirportInfoRepository();
             AccessibilityFeature = new AccessibilityFeatureRepository();
             AccessibilityOption = new AccessibilityOptionRepository();
-            Aircraft = new AircraftRepository();
-            Airline = new AirlineRepository(_context);
+            Aircraft = new AircraftRepository(_context, _mapper);
+            Airline = new AirlineRepository(_context, _mapper);
             AirportAmenity = new AirportAmenityRepository();
             AirportLocation = new AirportLocationRepository();
             AirportContact = new AirportContactRepository();
