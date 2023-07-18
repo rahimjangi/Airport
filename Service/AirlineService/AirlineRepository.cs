@@ -20,7 +20,6 @@ namespace Airport.Service.AirlineService
 
         public async Task<List<ServiceResponse<AirlineDto>>> GetAll()
         {
-            ServiceResponse<AirlineDto> _response = new ServiceResponse<AirlineDto>();
             var resultList = await _context.Airlines.ToListAsync();
 
             var responseList = new List<ServiceResponse<AirlineDto>>();
@@ -31,17 +30,18 @@ namespace Airport.Service.AirlineService
 
                 foreach (var mapResult in mapResults)
                 {
-                    _response = new ServiceResponse<AirlineDto>
+                    var response = new ServiceResponse<AirlineDto>
                     {
                         Data = mapResult,
                         Success = true,
                         Message = "Airline found."
                     };
 
-                    responseList.Add(_response);
+                    responseList.Add(response);
                 }
             }
             else {
+
                 var response = new ServiceResponse<AirlineDto>
                 {
                     Data = null,
@@ -57,31 +57,32 @@ namespace Airport.Service.AirlineService
 
         public async Task<ServiceResponse<AirlineDto>> GetById(int id)
         {
-            ServiceResponse<AirlineDto> _response = new ServiceResponse<AirlineDto>();
+            ServiceResponse<AirlineDto> response = new ServiceResponse<AirlineDto>();
 
             var result = await _context.Airlines.FirstOrDefaultAsync(a => a.Id.Equals(id));
 
             if(result != null)
             {
                 var resultMap = _mapper.Map<AirlineDto>(result);
-                _response = new ServiceResponse<AirlineDto>
+                response = new ServiceResponse<AirlineDto>
                 {
                     Data = resultMap,
                     Success = true,
                     Message = "Airline found."
                 };
-                return _response;
+                return response;
 
             }
             else
             {
-                _response = new ServiceResponse<AirlineDto>
+                response = new ServiceResponse<AirlineDto>
                 {
                     Data = null,
                     Success = false,
                     Message = "Airline not found."
                 };
-                return _response;
+
+                return response;
             }
         }
 
