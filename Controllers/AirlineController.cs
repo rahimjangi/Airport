@@ -26,7 +26,7 @@ namespace Airport.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Airline>>> GetAll(int id)
+        public async Task<ActionResult<ServiceResponse<Airline>>> GetById(int id)
         {
             var result= await _unitOfWork.Airline.GetById(id);
             return Ok(result);

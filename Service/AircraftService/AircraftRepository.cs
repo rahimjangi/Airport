@@ -3,6 +3,7 @@ using Airport.Dto;
 using Airport.Model;
 using AutoMapper;
 using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Service.AircraftService
@@ -45,7 +46,7 @@ namespace Airport.Service.AircraftService
                 {
                     Data = null,
                     Success = false,
-                    Message = "No airlines found."
+                    Message = "No Aircraft found."
                 };
 
                 responseList.Add(response);
@@ -67,7 +68,7 @@ namespace Airport.Service.AircraftService
                 {
                     Data = mapResult,
                     Success = true,
-                    Message = "Airline found."
+                    Message = "Aircraft found."
                 };
                 return response;
             }
@@ -77,7 +78,7 @@ namespace Airport.Service.AircraftService
                 {
                     Data = null,
                     Success = false,
-                    Message = "Airline not found."
+                    Message = "Aircraft not found."
                 };
 
                 return response;
@@ -105,9 +106,18 @@ namespace Airport.Service.AircraftService
             throw new NotImplementedException();
         }
 
-        public Task DeleteByName(string name)
+        public async Task DeleteByName(string name)
         {
-            throw new NotImplementedException();
+            var result = await _context.Aircrafts.FirstOrDefaultAsync(n => n.AircraftCode.Equals(name));
+            if(result != null)
+            {
+                _context.Aircrafts.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
         }
 
         public Task DeleteRange()

@@ -116,6 +116,10 @@ namespace Airport.Service.AirlineService
                 _context.Airlines.Remove(result);
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                await Task.CompletedTask;
+            }
 
         }
 
