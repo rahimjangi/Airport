@@ -39,5 +39,12 @@ namespace Airport.Controllers
             await _unitOfWork.Aircraft.CreateByEntity(sr);
             return Ok();
         }
+
+        [HttpDelete("")]
+        public async Task<ActionResult<Aircraft>> DeleteByName(string aircaftName)
+        {
+            var result = _unitOfWork.Aircraft.DeleteByName(aircaftName);
+            return Ok();
+        }
     }
 }
