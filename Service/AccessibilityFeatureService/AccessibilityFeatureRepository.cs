@@ -3,6 +3,7 @@ using Airport.Dto;
 using Airport.Model;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Airport.Service.AccessibilityFeatureService
 {
@@ -65,9 +66,19 @@ namespace Airport.Service.AccessibilityFeatureService
             throw new NotImplementedException();
         }
 
-        public Task DeleteByName(string name)
+        public async Task DeleteByName(string name)
         {
-            throw new NotImplementedException();
+            var result = await _context.AccessibilityFeature.FirstOrDefaultAsync(x => x.Name == name);
+
+            if (result != null)
+            {
+                _context.AccessibilityFeature.Remove(result);
+                _context.SaveChanges();
+            }
+            else
+            {
+               await Task.CompletedTask;
+            }
         }
 
         public Task DeleteRange()

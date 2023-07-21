@@ -31,5 +31,12 @@ namespace Airport.Controllers
             await _unitOfWork.AccessibilityFeature.CreateByEntity(sr);
             return Ok();
         }
+
+        [HttpDelete("")]
+        public async Task<ActionResult<ServiceResponse<AccessibilityFeature>>> DeleteByName(string name)
+        {
+            await _unitOfWork.AccessibilityFeature.DeleteByName(name);
+            return Ok();
+        }
     }
 }
