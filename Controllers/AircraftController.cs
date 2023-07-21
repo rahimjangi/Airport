@@ -43,7 +43,7 @@ namespace Airport.Controllers
         [HttpDelete("")]
         public async Task<ActionResult<Aircraft>> DeleteByName(string aircaftName)
         {
-            var result = _unitOfWork.Aircraft.DeleteByName(aircaftName);
+            await _unitOfWork.Aircraft.DeleteByName(aircaftName);
             return Ok();
         }
     }
