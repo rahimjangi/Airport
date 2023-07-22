@@ -72,14 +72,14 @@ namespace Airport.Service
             _context = context;
             _mapper = mapper;
 
-            AirportInfo = new AirportInfoRepository();
+            AirportInfo = new AirportInfoRepository(_context, _mapper);
             AccessibilityFeature = new AccessibilityFeatureRepository(_context, _mapper);
             AccessibilityOption = new AccessibilityOptionRepository(_context, _mapper);
             Aircraft = new AircraftRepository(_context, _mapper);
             Airline = new AirlineRepository(_context, _mapper);
             AirportAmenity = new AirportAmenityRepository(_context, _mapper);
             AirportLocation = new AirportLocationRepository();
-            AirportContact = new AirportContactRepository();
+            AirportContact = new AirportContactRepository(_context, _mapper);
             Baggage = new BaggageRepository();
             BoardingPass = new BoardingPassRepository();
             Booking = new BookingRepository();

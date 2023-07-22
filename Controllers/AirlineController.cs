@@ -18,7 +18,7 @@ namespace Airport.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Airline>>>> GetAll()
+        public async Task<ActionResult<List<ServiceResponse<Airline>>>> GetAll()
         {
            var result =  await _unitOfWork.Airline.GetAll();
 
