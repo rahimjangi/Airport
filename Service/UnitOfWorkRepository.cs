@@ -72,7 +72,7 @@ namespace Airport.Service
             _context = context;
             _mapper = mapper;
 
-            AirportInfo = new AirportInfoRepository();
+            AirportInfo = new AirportInfoRepository(_context, _mapper);
             AccessibilityFeature = new AccessibilityFeatureRepository(_context, _mapper);
             AccessibilityOption = new AccessibilityOptionRepository(_context, _mapper);
             Aircraft = new AircraftRepository(_context, _mapper);
