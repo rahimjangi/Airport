@@ -1,4 +1,5 @@
-﻿using Airport.Model;
+﻿using Airport.Dto;
+using Airport.Model;
 using Airport.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +16,27 @@ namespace Airport.Controllers
             this._unitOfWork = unitOfWork;
         }
 
-        [HttpPost]
-        public Task<ActionResult<ServiceResponse<Passenger>>> CreateByEntity(Passenger passenger)
+        [HttpGet]
+        public async Task<ActionResult<List<ServiceResponse<Passenger>>>> GetAll()
         {
-            var result = _unitOfWork.Passenger.CreateByEntity(passenger);
+            var result = await _unitOfWork.Passenger.GetAll();
+            return Ok(result);
+        }
 
-            if (result == null)
-            {
-                return Task.FromResult<ActionResult<ServiceResponse<Passenger>>>(BadRequest());
-            }
-            else
-            {
-                return Task.FromResult<ActionResult<ServiceResponse<Passenger>>>(Ok(result));
-            }
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<Passenger>>> CreateByEntity(PassengerDto passenger)
+        {
+            var sr = new ServiceResponse<PassengerDto>();
+            sr.Data = passenger;
+            await _unitOfWork.Passenger.CreateByEntity(sr);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<Passenger>>> DeleteByName(string passengerName)
+        {
+            await _unitOfWork.Passenger.DeleteByName(passengerName);
+            return Ok();
         }
     }
 }
