@@ -79,7 +79,7 @@ namespace Airport.Service
             Airline = new AirlineRepository(_context, _mapper);
             AirportAmenity = new AirportAmenityRepository(_context, _mapper);
             AirportLocation = new AirportLocationRepository();
-            AirportContact = new AirportContactRepository();
+            AirportContact = new AirportContactRepository(_context, _mapper);
             Baggage = new BaggageRepository();
             BoardingPass = new BoardingPassRepository();
             Booking = new BookingRepository();

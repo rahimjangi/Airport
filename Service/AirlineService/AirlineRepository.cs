@@ -94,7 +94,6 @@ namespace Airport.Service.AirlineService
 
                 await _context.Airlines.AddAsync(mapResult);
                 await _context.SaveChangesAsync();
-
             }
             else
             {
@@ -126,9 +125,7 @@ namespace Airport.Service.AirlineService
         public Task DeleteRange()
         {
             throw new NotImplementedException();
-        }
-
-        
+        }        
 
         public Task<ServiceResponse<AirlineDto>> GetByName(string name)
         {

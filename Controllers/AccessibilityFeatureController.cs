@@ -17,7 +17,7 @@ namespace Airport.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<AccessibilityFeature>>> GetAll()
+        public async Task<ActionResult<List<ServiceResponse<AccessibilityFeature>>>> GetAll()
         {
             var result = await _unitOfWork.AccessibilityFeature.GetAll();
             return Ok(result);
