@@ -91,7 +91,7 @@ namespace Airport.Service
             Language = new LanguageRepository();
             LoyaltyProgram = new LoyaltyProgramRepository();
             MapRoute = new MapRouteRepository();
-            Passenger = new PassengerRepository();
+            Passenger = new PassengerRepository(_context, _mapper);
             PassengerLocation = new PassengerLocationRepository();
             Payment = new PaymentRepository();
             PricingAndAvailability = new PricingAndAvailabilityRepository();
