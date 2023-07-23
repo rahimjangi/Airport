@@ -32,7 +32,7 @@ namespace Airport.Service.PassengerService
                     var res = new ServiceResponse<PassengerDto>
                     {
                         Data = result,
-                        Message = "Result Founded",
+                        Message = "Result found",
                         Success = true
                     };
                     responseList.Add(res);

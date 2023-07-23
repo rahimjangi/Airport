@@ -31,7 +31,7 @@ namespace Airport.Service.AirportInfoService
                     var res = new ServiceResponse<AirportInfoDto>
                     {
                         Data = result,
-                        Message = "Result founded",
+                        Message = "Result found",
                         Success = true
                     };
 
@@ -43,7 +43,7 @@ namespace Airport.Service.AirportInfoService
                 var res = new ServiceResponse<AirportInfoDto>
                 {
                     Data = null,
-                    Message = "Result founded",
+                    Message = "Result found",
                     Success = true
                 };
 

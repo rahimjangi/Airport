@@ -34,7 +34,7 @@ namespace Airport.Service.AirportContactService
                     var res = new ServiceResponse<AirportContactDto>
                     {
                         Data = reslut,
-                        Message = "Result founded",
+                        Message = "Result found",
                         Success = true
                     };
                     responseList.Add(res);
