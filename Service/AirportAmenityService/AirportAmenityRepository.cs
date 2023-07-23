@@ -32,7 +32,7 @@ namespace Airport.Service.AirportAmenityService
                     var res = new ServiceResponse<AirportAmenityDto>
                     {
                         Data = result,
-                        Message = "Result founded.",
+                        Message = "Result found.",
                         Success = true
                     };
 

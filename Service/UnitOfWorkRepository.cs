@@ -78,7 +78,7 @@ namespace Airport.Service
             Aircraft = new AircraftRepository(_context, _mapper);
             Airline = new AirlineRepository(_context, _mapper);
             AirportAmenity = new AirportAmenityRepository(_context, _mapper);
-            AirportLocation = new AirportLocationRepository();
+            AirportLocation = new AirportLocationRepository(_context, _mapper);
             AirportContact = new AirportContactRepository(_context, _mapper);
             Baggage = new BaggageRepository();
             BoardingPass = new BoardingPassRepository();
