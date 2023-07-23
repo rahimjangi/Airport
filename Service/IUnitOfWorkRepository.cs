@@ -48,6 +48,7 @@ namespace Airport.Service
         public ICityRepository City { get; set; }
         public ICountryRepository Country { get; set; }
         public IFlightRepository Flight { get; set; }
+        public IFlightNotificationeRepositoy FlightNotification { get; set; }
         public ILanguageRepository Language { get; set; }
         public ILoyaltyProgramRepository LoyaltyProgram { get; set; }
         public IMapRouteRepository MapRoute { get; set; }

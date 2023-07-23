@@ -52,7 +52,7 @@ namespace Airport.Service
         public ICityRepository City { get; set; }
         public ICountryRepository Country { get; set; }
         public IFlightRepository Flight { get; set; }
-        public IFlightNotificationeRepositoy FlightNotificatione { get; set; }
+        public IFlightNotificationeRepositoy FlightNotification { get; set; }
         public ILanguageRepository Language { get; set; }
         public ILoyaltyProgramRepository LoyaltyProgram { get; set; }
         public IMapRouteRepository MapRoute { get; set; }
@@ -80,15 +80,15 @@ namespace Airport.Service
             AirportAmenity = new AirportAmenityRepository(_context, _mapper);
             AirportLocation = new AirportLocationRepository(_context, _mapper);
             AirportContact = new AirportContactRepository(_context, _mapper);
-            Baggage = new BaggageRepository();
-            BoardingPass = new BoardingPassRepository();
-            Booking = new BookingRepository();
-            CheckInRequest = new CheckInRequestRepository();
-            City = new CityRepository();
-            Country = new CountryRepository();
-            Flight = new FlightRepository();
-            FlightNotificatione = new FlightNotificationeRepository();
-            Language = new LanguageRepository();
+            Baggage = new BaggageRepository(_context, _mapper);
+            BoardingPass = new BoardingPassRepository(_context, _mapper);
+            Booking = new BookingRepository(_context, _mapper);
+            CheckInRequest = new CheckInRequestRepository(_context, _mapper);
+            City = new CityRepository(_context, _mapper);
+            Country = new CountryRepository(_context, _mapper);
+            Flight = new FlightRepository(_context, _mapper);
+            FlightNotification = new FlightNotificationeRepository(_context, _mapper);
+            Language = new LanguageRepository(_context, _mapper);
             LoyaltyProgram = new LoyaltyProgramRepository();
             MapRoute = new MapRouteRepository();
             Passenger = new PassengerRepository(_context, _mapper);

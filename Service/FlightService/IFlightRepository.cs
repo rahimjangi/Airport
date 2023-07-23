@@ -1,9 +1,9 @@
-﻿using Airport.Model;
+﻿using Airport.Dto;
 using Airport.Service.EFRepository;
 
 namespace Airport.Service.FlightService
 {
-    public interface IFlightRepository : IEFRepository<Flight>
+    public interface IFlightRepository : IEFRepository<ServiceResponse<FlightDto>>
     {
     }
 }
