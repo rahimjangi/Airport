@@ -33,7 +33,7 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task<ActionResult<ServiceResponse<Language>>> DeleteByName(string flightNumbber)
         {
             await _unitOfWork.Language.DeleteByName(flightNumbber);

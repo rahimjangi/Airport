@@ -8,11 +8,11 @@
         // Additional properties as needed
     }
 
-    public enum SecurityWaitTimeStatus
-    {
-        Low,
-        Moderate,
-        High
-    }
+    //public enum SecurityWaitTimeStatus
+    //{
+    //    Low,
+    //    Moderate,
+    //    High
+    //}
 
 }

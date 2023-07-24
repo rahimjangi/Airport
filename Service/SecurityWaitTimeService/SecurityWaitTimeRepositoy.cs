@@ -1,17 +1,85 @@
-﻿using Airport.Model;
+﻿using Airport.Data;
+using Airport.Dto;
+using Airport.Model;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Service.SecurityWaitTimeService
 {
     public class SecurityWaitTimeRepositoy : ISecurityWaitTimeRepository
     {
-        public Task CreateByEntity(SecurityWaitTime entity)
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+
+        public SecurityWaitTimeRepositoy(ApplicationDbContext context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _mapper = mapper;
         }
 
-        public Task DeleteById(int id)
+
+        public async Task<List<ServiceResponse<SecurityWaitTimeDto>>> GetAll()
         {
-            throw new NotImplementedException();
+            var resultList = await _context.SecurityWaitTime.ToListAsync();
+            var responseList = new List<ServiceResponse<SecurityWaitTimeDto>>();
+
+            if (resultList.Count > 0 && resultList != null)
+            {
+                var mapResult = _mapper.Map<List<SecurityWaitTimeDto>>(resultList);
+
+                foreach (var result in mapResult)
+                {
+                    var res = new ServiceResponse<SecurityWaitTimeDto>
+                    {
+                        Data = result,
+                        Message = "Result found",
+                        Success = true,
+                    };
+
+                    responseList.Add(res);
+                }
+            }
+            else
+            {
+                var res = new ServiceResponse<SecurityWaitTimeDto>
+                {
+                    Data = null,
+                    Message = "Result not found",
+                    Success = false
+                };
+
+                responseList.Add(res);
+            }
+
+            return responseList;
+        }
+        public async Task CreateByEntity(ServiceResponse<SecurityWaitTimeDto> entity)
+        {
+            if (entity.Data != null)
+            {
+                var mapResult = _mapper.Map<SecurityWaitTime>(entity.Data);
+                await _context.SecurityWaitTime.AddAsync(mapResult);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
+        }
+
+        public async Task DeleteById(int id)
+        {
+            var result = await _context.SecurityWaitTime.FirstOrDefaultAsync(n => n.SecurityCheckpointId.Equals(id));
+
+            if (result != null)
+            {
+                _context.SecurityWaitTime.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
         }
 
         public Task DeleteByName(string name)
@@ -23,28 +91,22 @@ namespace Airport.Service.SecurityWaitTimeService
         {
             throw new NotImplementedException();
         }
-
-        public Task<List<SecurityWaitTime>> GetAll()
+        public Task<ServiceResponse<SecurityWaitTimeDto>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SecurityWaitTime> GetById(int id)
+        public Task<ServiceResponse<SecurityWaitTimeDto>> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SecurityWaitTime> GetByName(string name)
+        public Task<ServiceResponse<SecurityWaitTimeDto>> Update(int id, ServiceResponse<SecurityWaitTimeDto> entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SecurityWaitTime> Update(int id, SecurityWaitTime entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<SecurityWaitTime> UpdateByEntity(SecurityWaitTime entity)
+        public Task<ServiceResponse<SecurityWaitTimeDto>> UpdateByEntity(ServiceResponse<SecurityWaitTimeDto> entity)
         {
             throw new NotImplementedException();
         }

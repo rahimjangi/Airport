@@ -32,7 +32,7 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task<ActionResult<ServiceResponse<Baggage>>> DeleteByName(string baggageTagNumber)
         {
             await _unitOfWork.Baggage.DeleteByName(baggageTagNumber);

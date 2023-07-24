@@ -34,7 +34,7 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task<ActionResult<ServiceResponse<Booking>>> DeleteById(int bookingNumber)
         {
             await _unitWork.Booking.DeleteById(bookingNumber);

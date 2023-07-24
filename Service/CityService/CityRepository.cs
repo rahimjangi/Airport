@@ -64,12 +64,6 @@ namespace Airport.Service.CityService
                 await Task.CompletedTask;
             };
         }
-
-        public Task DeleteById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task DeleteByName(string name)
         {
             var result = await _context.City.FirstOrDefaultAsync(n => n.Name.Equals(name));
@@ -84,6 +78,11 @@ namespace Airport.Service.CityService
                 await Task.CompletedTask;
             }
         }
+
+        public Task DeleteById(int id)
+        {
+            throw new NotImplementedException();
+        }        
 
         public Task DeleteRange()
         {

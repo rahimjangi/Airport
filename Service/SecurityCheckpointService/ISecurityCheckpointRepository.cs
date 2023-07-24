@@ -1,9 +1,9 @@
-﻿using Airport.Model;
+﻿using Airport.Dto;
 using Airport.Service.EFRepository;
 
 namespace Airport.Service.SecurityCheckpointService
 {
-    public interface ISecurityCheckpointRepository : IEFRepository<SecurityCheckpoint>
+    public interface ISecurityCheckpointRepository : IEFRepository<ServiceResponse<SecurityCheckpointDto>>
     {
     }
 }

@@ -33,10 +33,10 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<ServiceResponse<City>>> DeleteById(int bookingNumber)
+        [HttpDelete("")]
+        public async Task<ActionResult<ServiceResponse<City>>> DeleteByName(string cityName)
         {
-            await _unitWork.City.DeleteById(bookingNumber);
+            await _unitWork.City.DeleteByName(cityName);
             return Ok();
         }
     }

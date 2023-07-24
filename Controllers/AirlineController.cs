@@ -25,7 +25,7 @@ namespace Airport.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public async Task<ActionResult<ServiceResponse<Airline>>> GetById(int id)
         {
             var result= await _unitOfWork.Airline.GetById(id);
@@ -41,7 +41,7 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete("")]
+        [HttpDelete]
         public async Task<ActionResult<ServiceResponse<Airline>>> DeleteByName(string airlineName)
         {            
             await _unitOfWork.Airline.DeleteByName(airlineName);
