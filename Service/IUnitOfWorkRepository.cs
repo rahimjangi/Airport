@@ -25,6 +25,7 @@ using Airport.Service.PricingAndAvailabilityService;
 using Airport.Service.SecurityCheckpointService;
 using Airport.Service.SecurityWaitTimeService;
 using Airport.Service.TranslationService;
+using Airport.Service.TransportationOptionService;
 using Airport.Service.TransportationProviderService;
 using Airport.Service.TransportationUpdateService;
 
@@ -59,6 +60,7 @@ namespace Airport.Service
         public ISecurityCheckpointRepository SecurityCheckpoint { get; set; }
         public ISecurityWaitTimeRepository SecurityWaitTime { get; set; }
         public ITranslationRepository Translation { get; set; }
+        public ITransportationOptionRepository TransportationOption { get; set; }
         public ITransportationProviderRepository TransportationProvider { get; set; }
         public ITransportationUpdateRepository TransportationUpdate { get; set; }
 

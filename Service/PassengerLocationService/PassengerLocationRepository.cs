@@ -1,10 +1,10 @@
-﻿using Airport.Model;
+﻿using Airport.Dto;
 
 namespace Airport.Service.PassengerLocationService
 {
     public class PassengerLocationRepository : IPassengerLocationRepository
     {
-        public Task CreateByEntity(PassengerLocation entity)
+        public Task CreateByEntity(ServiceResponse<PassengerLocationDto> entity)
         {
             throw new NotImplementedException();
         }
@@ -24,27 +24,27 @@ namespace Airport.Service.PassengerLocationService
             throw new NotImplementedException();
         }
 
-        public Task<List<PassengerLocation>> GetAll()
+        public Task<List<ServiceResponse<PassengerLocationDto>>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<PassengerLocation> GetById(int id)
+        public Task<ServiceResponse<PassengerLocationDto>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PassengerLocation> GetByName(string name)
+        public Task<ServiceResponse<PassengerLocationDto>> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PassengerLocation> Update(int id, PassengerLocation entity)
+        public Task<ServiceResponse<PassengerLocationDto>> Update(int id, ServiceResponse<PassengerLocationDto> entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PassengerLocation> UpdateByEntity(PassengerLocation entity)
+        public Task<ServiceResponse<PassengerLocationDto>> UpdateByEntity(ServiceResponse<PassengerLocationDto> entity)
         {
             throw new NotImplementedException();
         }

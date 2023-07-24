@@ -1,17 +1,84 @@
-﻿using Airport.Model;
+﻿using Airport.Data;
+using Airport.Dto;
+using Airport.Model;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Airport.Service.TransportationUpdateService
 {
     public class TransportationUpdateRepository : ITransportationUpdateRepository
     {
-        public Task CreateByEntity(TransportationUpdate entity)
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+
+        public TransportationUpdateRepository(ApplicationDbContext context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _mapper = mapper;
         }
 
-        public Task DeleteById(int id)
+        public async Task<List<ServiceResponse<TransportationUpdateDto>>> GetAll()
         {
-            throw new NotImplementedException();
+            var resultList = await _context.TransportationUpdate.ToListAsync();
+            var responseList = new List<ServiceResponse<TransportationUpdateDto>>();
+
+            if (resultList.Count > 0 && resultList != null)
+            {
+                var mapResult = _mapper.Map<List<TransportationUpdateDto>>(resultList);
+
+                foreach (var result in mapResult)
+                {
+                    var res = new ServiceResponse<TransportationUpdateDto>
+                    {
+                        Data = result,
+                        Message = "Result found",
+                        Success = true,
+                    };
+
+                    responseList.Add(res);
+                }
+            }
+            else
+            {
+                var res = new ServiceResponse<TransportationUpdateDto>
+                {
+                    Data = null,
+                    Message = "Result not found",
+                    Success = false
+                };
+
+                responseList.Add(res);
+            }
+
+            return responseList;
+        }
+        public async Task CreateByEntity(ServiceResponse<TransportationUpdateDto> entity)
+        {
+            if (entity.Data != null)
+            {
+                var mapResult = _mapper.Map<TransportationUpdate>(entity.Data);
+                await _context.TransportationUpdate.AddAsync(mapResult);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
+        }
+
+        public async Task DeleteById(int id)
+        {
+            var result = await _context.TransportationUpdate.FirstOrDefaultAsync(n => n.TransportationProviderId.Equals(id));
+
+            if (result != null)
+            {
+                _context.TransportationUpdate.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                await Task.CompletedTask;
+            }
         }
 
         public Task DeleteByName(string name)
@@ -23,28 +90,22 @@ namespace Airport.Service.TransportationUpdateService
         {
             throw new NotImplementedException();
         }
-
-        public Task<List<TransportationUpdate>> GetAll()
+        public Task<ServiceResponse<TransportationUpdateDto>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TransportationUpdate> GetById(int id)
+        public Task<ServiceResponse<TransportationUpdateDto>> GetByName(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TransportationUpdate> GetByName(string name)
+        public Task<ServiceResponse<TransportationUpdateDto>> Update(int id, ServiceResponse<TransportationUpdateDto> entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TransportationUpdate> Update(int id, TransportationUpdate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TransportationUpdate> UpdateByEntity(TransportationUpdate entity)
+        public Task<ServiceResponse<TransportationUpdateDto>> UpdateByEntity(ServiceResponse<TransportationUpdateDto> entity)
         {
             throw new NotImplementedException();
         }

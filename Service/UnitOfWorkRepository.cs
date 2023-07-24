@@ -26,6 +26,7 @@ using Airport.Service.PricingAndAvailabilityService;
 using Airport.Service.SecurityCheckpointService;
 using Airport.Service.SecurityWaitTimeService;
 using Airport.Service.TranslationService;
+using Airport.Service.TransportationOptionService;
 using Airport.Service.TransportationProviderService;
 using Airport.Service.TransportationUpdateService;
 using AutoMapper;
@@ -63,6 +64,7 @@ namespace Airport.Service
         public ISecurityCheckpointRepository SecurityCheckpoint { get; set; }
         public ISecurityWaitTimeRepository SecurityWaitTime { get; set; }
         public ITranslationRepository Translation { get; set; }
+        public ITransportationOptionRepository TransportationOption { get; set; }
         public ITransportationProviderRepository TransportationProvider { get; set; }
         public ITransportationUpdateRepository TransportationUpdate { get; set; }
 
@@ -89,17 +91,18 @@ namespace Airport.Service
             Flight = new FlightRepository(_context, _mapper);
             FlightNotification = new FlightNotificationeRepository(_context, _mapper);
             Language = new LanguageRepository(_context, _mapper);
-            LoyaltyProgram = new LoyaltyProgramRepository();
-            MapRoute = new MapRouteRepository();
+            LoyaltyProgram = new LoyaltyProgramRepository(_context, _mapper);
+            MapRoute = new MapRouteRepository(_context, _mapper);
             Passenger = new PassengerRepository(_context, _mapper);
             PassengerLocation = new PassengerLocationRepository();
-            Payment = new PaymentRepository();
-            PricingAndAvailability = new PricingAndAvailabilityRepository();
-            SecurityCheckpoint = new SecurityCheckpointRepository();
-            SecurityWaitTime = new SecurityWaitTimeRepositoy();
-            Translation = new TranslationRepository();
-            TransportationProvider = new TransportationProviderRepository();
-            TransportationUpdate = new TransportationUpdateRepository();
+            Payment = new PaymentRepository(_context, _mapper);
+            PricingAndAvailability = new PricingAndAvailabilityRepository(_context, _mapper);
+            SecurityCheckpoint = new SecurityCheckpointRepository(_context, _mapper);
+            SecurityWaitTime = new SecurityWaitTimeRepositoy(_context, _mapper);
+            Translation = new TranslationRepository(_context, _mapper);
+            TransportationOption = new TransportationOptionRepository(_context, _mapper);
+            TransportationProvider = new TransportationProviderRepository(_context, _mapper);
+            TransportationUpdate = new TransportationUpdateRepository(_context, _mapper);
             _context = context;
         }
     }

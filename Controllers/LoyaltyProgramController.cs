@@ -33,7 +33,7 @@ namespace Airport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("")]
         public async Task<ActionResult<ServiceResponse<LoyaltyProgram>>> DeleteById(int passengerId)
         {
             await _unitOfWork.LoyaltyProgram.DeleteById(passengerId);

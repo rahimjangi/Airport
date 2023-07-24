@@ -62,7 +62,7 @@ namespace Airport.Service.CountryService
             else
             {
                 await Task.CompletedTask;
-            };
+            }
         }
         public async Task DeleteByName(string name)
         {
@@ -82,7 +82,7 @@ namespace Airport.Service.CountryService
         public Task DeleteById(int id)
         {
             throw new NotImplementedException();
-        }       
+        }
 
         public Task DeleteRange()
         {
