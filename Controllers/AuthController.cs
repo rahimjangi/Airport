@@ -11,31 +11,44 @@ namespace Airport.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly SymmetricSecurityKey _securityKey;
+        public AuthController()
+        {
+            _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_here"));
+        }
+
+
         [HttpPost("login")]
         public IActionResult Login(string username, string password)
         {
-            // Validate username and password (you can use your authentication logic here)
-            // If valid, create claims
+
+            // Authenticate user and get the user's unique identifier and role
+            var userId = "user123";
+            var userRole = "admin";
+
+            // Step 2: Create the Payload
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, username),
-                // Add other claims as needed, e.g., roles, permissions, etc.
+                new Claim(JwtRegisteredClaimNames.Sub, userId),
+                new Claim(ClaimTypes.Role, userRole),
+                // You can add more claims as needed, such as name, email, etc.
             };
 
-            // Generate token
-            var jwtSecretKey = "your-secret-key"; // Use the same secret key as configured above
-            var token = new JwtSecurityToken(
-                issuer: "your-issuer",
-                audience: "your-audience",
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(15), // Set token expiration time
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)), SecurityAlgorithms.HmacSha256)
-            );
+            // Step 3: Create the Header
+            var signingCredentials = new SigningCredentials(_securityKey, SecurityAlgorithms.HmacSha256);
+            var header = new JwtHeader(signingCredentials);
 
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+            // Step 4: Combine Header and Payload
+            var payload = new JwtPayload(claims);
+            var jwtToken = new JwtSecurityToken(header, payload);
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            // Return token in the API response
-            return Ok(new { Token = tokenString });
+            // Step 5: Sign the Token and get the complete JWT
+            string token = tokenHandler.WriteToken(jwtToken);
+
+            // Return the token as part of the response, you might also return other user-related information
+            return Ok(new { Token = token });
+
         }
     }
 }
