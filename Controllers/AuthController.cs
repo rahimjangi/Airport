@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Airport.Controllers
@@ -14,7 +15,17 @@ namespace Airport.Controllers
         private readonly SymmetricSecurityKey _securityKey;
         public AuthController()
         {
-            _securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_here"));
+            _securityKey = GenerateSecurityKey();
+        }
+        private SymmetricSecurityKey GenerateSecurityKey()
+        {
+            byte[] key = new byte[32]; // 256 bits (32 bytes)
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(key);
+            }
+
+            return new SymmetricSecurityKey(key);
         }
 
 
