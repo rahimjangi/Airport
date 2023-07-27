@@ -1,13 +1,11 @@
 using Airport.Data;
-using Airport.Dto;
-using Airport.Model;
 using Airport.Service;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Airport.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +28,10 @@ var tokenValidationParameters = new TokenValidationParameters
     ValidAudience = "your-audience",   // Replace with your API's audience
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
 };
+
+// Add API key authentication middleware
+builder.Services.AddAuthentication("ApiKey")
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKey", options => { });
 
 builder.Services.AddAuthentication(options =>
 {
