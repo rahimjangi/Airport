@@ -1,6 +1,7 @@
 ﻿using Airport.Dto;
 using Airport.Model;
 using Airport.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace Airport.Controllers
         }
 
         [HttpGet("/{id}")]
+        [Authorize]
         public async Task<ActionResult<ServiceResponse<Airline>>> GetById(int id)
         {
             var result= await _unitOfWork.Airline.GetById(id);
