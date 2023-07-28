@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Airport.Security;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+
+    // Add the security scheme for API key authentication
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.ApiKey,
+        Name = "X-Api-Key", // Change this to the actual header key you are expecting
+        In = ParameterLocation.Header,
+        Description = "API key needed for authentication"
+    });
+
+    // Add the security requirement to apply the API key to all endpoints
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "ApiKey" }
+                },
+                new string[] {}
+            }
+        });
+});
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Configure JWT authentication
@@ -30,8 +56,9 @@ var tokenValidationParameters = new TokenValidationParameters
 };
 
 // Add API key authentication middleware
-builder.Services.AddAuthentication("ApiKey")
-    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKey", options => { });
+builder.Services.AddAuthentication("ApiKeySchema")
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKeySchema", options => { });
+
 
 builder.Services.AddAuthentication(options =>
 {
@@ -61,14 +88,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
-
 }
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
-app.UseRouting();
+
 
 
 app.Run();

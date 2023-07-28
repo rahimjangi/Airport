@@ -19,6 +19,7 @@ namespace Airport.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "ApiKeySchema")]
         public async Task<ActionResult<List<ServiceResponse<Airline>>>> GetAll()
         {
            var result =  await _unitOfWork.Airline.GetAll();
