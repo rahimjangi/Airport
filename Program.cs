@@ -5,8 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
-using Airport.Security;
 using Microsoft.OpenApi.Models;
+using Airport.Security;
+using Airport.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,25 +23,33 @@ builder.Services.AddSwaggerGen(c =>
     // Add the security scheme for API key authentication
     c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
     {
+        Description = "API key needed for authentication",
         Type = SecuritySchemeType.ApiKey,
         Name = "X-Api-Key", // Change this to the actual header key you are expecting
         In = ParameterLocation.Header,
-        Description = "API key needed for authentication"
+        Scheme="ApiKeyScheme"
     });
 
-    // Add the security requirement to apply the API key to all endpoints
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    var scheme = new OpenApiSecurityScheme
+    {
+        Reference = new OpenApiReference
         {
-            {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "ApiKey" }
-                },
-                new string[] {}
-            }
-        });
+            Type = ReferenceType.Schema,
+            Id = "ApiKey"
+        },
+        In = ParameterLocation.Header
+    };
+
+    var requirment = new OpenApiSecurityRequirement
+    {
+        {scheme, new List<string>() }
+    };
+
+    // Add the security requirement to apply the API key to all endpoints
+    c.AddSecurityRequirement(requirment);
 });
 
+builder.Services.AddScoped<ApiKeyAuthFilter>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Configure JWT authentication
@@ -54,10 +63,6 @@ var tokenValidationParameters = new TokenValidationParameters
     ValidAudience = "your-audience",   // Replace with your API's audience
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
 };
-
-// Add API key authentication middleware
-builder.Services.AddAuthentication("ApiKeySchema")
-    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>("ApiKeySchema", options => { });
 
 
 builder.Services.AddAuthentication(options =>
@@ -90,12 +95,20 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+//app.UseMiddleware<ApiKeyAuthMiddleware>();
 app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
+//app.MapGet("", () =>
+//{
+//    return Enumerable.Range(1, 5).Select(index => new Airline
+//    {
+//    })
+//}
+//)
 
 
 app.Run();
