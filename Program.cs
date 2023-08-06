@@ -6,7 +6,6 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.OpenApi.Models;
-using Airport.Security;
 using Airport.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,64 +15,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+builder.Services.AddSwaggerGen();
 
-    // Add the security scheme for API key authentication
-    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
-    {
-        Description = "API key needed for authentication",
-        Type = SecuritySchemeType.ApiKey,
-        Name = "X-Api-Key", // Change this to the actual header key you are expecting
-        In = ParameterLocation.Header,
-        Scheme="ApiKeyScheme"
-    });
-
-    var scheme = new OpenApiSecurityScheme
-    {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.Schema,
-            Id = "ApiKey"
-        },
-        In = ParameterLocation.Header
-    };
-
-    var requirment = new OpenApiSecurityRequirement
-    {
-        {scheme, new List<string>() }
-    };
-
-    // Add the security requirement to apply the API key to all endpoints
-    c.AddSecurityRequirement(requirment);
-});
-
-builder.Services.AddScoped<ApiKeyAuthFilter>();
 builder.Services.AddAutoMapper(typeof(Program));
 
-// Configure JWT authentication
-var jwtSecretKey = "your-secret-key"; // Replace with a secure secret key
-var tokenValidationParameters = new TokenValidationParameters
-{
-    ValidateIssuer = true,
-    ValidateAudience = true,
-    ValidateIssuerSigningKey = true,
-    ValidIssuer = "your-issuer",       // Replace with your API's issuer
-    ValidAudience = "your-audience",   // Replace with your API's audience
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
-};
 
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = tokenValidationParameters;
-});
+builder.Services.AddAuthentication().AddJwtBearer();
+
+builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+//{
+//    options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
+
+
+//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidAudience = builder.Configuration["Auth0:Audience"],
+//        ValidIssuer = $"{builder.Configuration["Auth0:Domain"]}"
+//    };
+
+//    AppContext.SetSwitch("Microsoft.AspNetCore.Authentication.SuppressAutoDefaultScheme", true);
+//});
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(
@@ -95,20 +58,10 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-//app.UseMiddleware<ApiKeyAuthMiddleware>();
-app.UseAuthentication();
+//app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthorization();
+//app.UseAuthorization();
 app.MapControllers();
-
-//app.MapGet("", () =>
-//{
-//    return Enumerable.Range(1, 5).Select(index => new Airline
-//    {
-//    })
-//}
-//)
-
 
 app.Run();
