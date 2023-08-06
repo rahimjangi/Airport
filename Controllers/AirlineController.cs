@@ -1,6 +1,5 @@
 ﻿using Airport.Dto;
 using Airport.Model;
-using Airport.Security;
 using Airport.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,8 +19,6 @@ namespace Airport.Controllers
         }
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = "ApiKeySchema")]
-        [ServiceFilter(typeof(ApiKeyAuthFilter))]
         public async Task<ActionResult<List<ServiceResponse<Airline>>>> GetAll()
         {
            var result =  await _unitOfWork.Airline.GetAll();
